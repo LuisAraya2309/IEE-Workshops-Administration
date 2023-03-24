@@ -1,5 +1,6 @@
 import React,{Fragment, useState} from 'react'
 import "./LoginPage.css"
+import axios from 'axios'
 
 export function LoginPage () {
   const [email, setEmail]=useState('')
@@ -7,10 +8,16 @@ export function LoginPage () {
 
   async function submit(e){
     e.preventDefault();
+
     try {
-      console.log(e)
-    } catch (e) {
-      console.log(e)
+      const response = await axios.post('mongodb+srv://admin:ieeworkshop@iee-workshop-administra.udailb2.mongodb.net/iee-workshop-administration', {
+        email,
+        password
+      })
+
+      console.log(response.data)
+    } catch (error) {
+      console.error(error)
     }
   }
 
