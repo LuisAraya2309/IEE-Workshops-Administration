@@ -1,4 +1,5 @@
 import React,{Fragment, useState} from 'react'
+import "./LoginPage.css"
 
 export function LoginPage () {
   const [email, setEmail]=useState('')
@@ -15,14 +16,28 @@ export function LoginPage () {
 
   return (
     <Fragment>
-    <div className='LoginPage'>
-      <h1>Iniciar Sesion</h1>
+    <div className='container'>
+      <form onSubmit={submit}>
+        <h1>Iniciar Sesion</h1>
 
-      <form action="POST">
-        <input type="text" onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email" name="" id=""/>
-        <input type="text" onChange={(e)=>{setPassword(e.target.value)}} placeholder="Password" name="" id=""/>
+        <div class="inputBox">
+          <input type="text" 
+            placeholder="Correo"
+            onChange={(e)=>{setEmail(e.target.value)}}/>
+          <span>Correo</span>
+          <i></i>
+        </div>
 
-        <button type="submit" onClick={submit}/>
+        <div class="inputBox">
+          <input type="password" 
+            placeholder="Contraseña"
+            onChange={(e)=>{setPassword(e.target.value)}} 
+          />
+          <span>Contraseña</span>
+          <i></i>
+        </div>
+
+        <input type="submit" value="Ingresar"/>  
       </form>
     </div>
     </Fragment>
