@@ -1,36 +1,45 @@
 import React,{Fragment, useState} from 'react'
+import {useForm} from 'react-hook-form';
 import "./LoginPage.css"
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export function LoginPage () {
-  const [email, setEmail]=useState('')
-  const [password, setPassword]=useState('')
+  const {register,handleSubmit} = useForm();
 
-  async function submit(e){
-    e.preventDefault();
+  let navigate = useNavigate()
 
-    try {
-      const response = await axios.post('mongodb+srv://admin:ieeworkshop@iee-workshop-administra.udailb2.mongodb.net/iee-workshop-administration', {
-        email,
-        password
-      })
-
-      console.log(response.data)
-    } catch (error) {
-      console.error(error)
-    }
+  const loggedIn = (userLogged,userPassword) =>{
+    // Loged and navigate to component main Menu
+    //let adminPath = '/Menu'
+    //navigate(adminPath,{state:{user:userLogged}})
+    alert("LOGED IN")
   }
+
+  const onSubmit = async (data) => {
+      try{
+        const response = await axios.post('http://localhost:3001/users/login', data);
+        console.log(response);
+        const userLogged = response.data.email;
+        const userPassword = response.data.password;
+        loggedIn(userLogged)
+      } catch(err){
+        alert('Usuario invalido')
+      }
+  }
+ 
 
   return (
     <Fragment>
     <div className='container'>
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Iniciar Sesion</h1>
 
         <div class="inputBox">
-          <input type="text" 
+          <input type="email" 
             placeholder="Correo"
-            onChange={(e)=>{setEmail(e.target.value)}}/>
+            id="email"
+            {...register('email',{required:true})}/>
           <span>Correo</span>
           <i></i>
         </div>
@@ -38,8 +47,8 @@ export function LoginPage () {
         <div class="inputBox">
           <input type="password" 
             placeholder="Contraseña"
-            onChange={(e)=>{setPassword(e.target.value)}} 
-          />
+            id="password"
+            {...register('password',{required:true})} />
           <span>Contraseña</span>
           <i></i>
         </div>
