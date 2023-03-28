@@ -11,7 +11,7 @@ export function LoginPage () {
 
   const loggedIn = (userLogged,userPassword) =>{
     // Loged and navigate to component main Menu
-    //let adminPath = '/Menu'
+    let adminPath = '/AdminPage'
     //navigate(adminPath,{state:{user:userLogged}})
     alert("LOGED IN")
   }
