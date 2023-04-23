@@ -1,28 +1,26 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Outlet  } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import logo from "../../resources/logo.jpg"
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from ".././resources/logoO.jpg"
 import './nav.css';
 
 export default function Nav() {
-  const user = useSelector((state) => state.user)
 
   return (
     <>
       <nav>
         <>
-        <div className="nav--links">
+        <div className="nav--links" >
           <img className="nav--logo" src={logo} alt="logo" />
           {
-            user.logged && user.type &&
             <>
-              {/* <Link className="nav--link" to="/">Home</Link> */}
+            <div className="user-login">
               <Link className="nav--link" to="/">
-                <FontAwesomeIcon icon={FaSignInAlt} />
+                <FontAwesomeIcon icon={faSignInAlt} />
               </Link>
+            </div>
             </>
           }
         </div>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Layout from '../components/Layout';
+import Layout from '../../Layout';
 
 export  function AdminPage() {
   return (
@@ -12,6 +12,5 @@ export  function AdminPage() {
         <Button variant="outlined">Outlined</Button>
       </Stack>
     </Layout>
-    
   );
 }

@@ -13,6 +13,7 @@ export function LoginPage () {
     // Loged and navigate to component main Menu
     let adminPath = '/AdminPage'
     navigate(adminPath,{state:{user:userLogged}})
+    alert("LOGED IN")
   }
 
   const onSubmit = async (data) => {

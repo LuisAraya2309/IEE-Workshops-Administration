@@ -12,16 +12,18 @@ nav {
     display: flex;
     align-items: center;
     gap: 20px;
+    
   }
   
   .nav--logo {
-    width: 85px;
+    width: 60px;
+    height: 60px;
   }
   
   .nav--link {
-    display: inline-block;
-    margin-right: auto;
-    margin-left: 0;
+    text-decoration: none;
+    color: #0B186B;
+    
   }
   
   .nav--link:visited {

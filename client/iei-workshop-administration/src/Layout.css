@@ -1,20 +1,18 @@
 .Layout{
-    background: '#F3F8FF';
+  background: #F3F8FF;
 }
 
 .image-container {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
+    align-items: left;
   }
   
   .image-container img {
     margin-right: auto;
-    margin-left: 0;
+    margin-left: 76%;
   }
   
-
 .purpleButton{
 
     background: #4F4FB9;
@@ -32,3 +30,10 @@
     background: #4CA2A2;
     border-radius: 8px;
 }
+
+.backgorund {
+    background-image: url("./resources/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
