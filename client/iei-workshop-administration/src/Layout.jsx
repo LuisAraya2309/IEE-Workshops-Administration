@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <div className = "Layout">
         <div class="image-container">
-            <img src = {circle} alt="Layout image"/>
+            <img src = {circle} alt="Layout"/>
         </div>
         {children}
     </div>
