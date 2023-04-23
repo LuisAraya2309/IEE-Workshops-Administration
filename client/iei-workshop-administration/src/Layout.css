@@ -1,0 +1,34 @@
+.Layout{
+    background: '#F3F8FF';
+}
+
+.image-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .image-container img {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  
+
+.purpleButton{
+
+    background: #4F4FB9;
+    border-radius: 8px;
+}
+
+.orangeButton{
+
+    background: #F9973C;
+    border-radius: 8px;
+}
+
+.greenButton{
+
+    background: #4CA2A2;
+    border-radius: 8px;
+}
