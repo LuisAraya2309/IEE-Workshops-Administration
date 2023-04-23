@@ -7,17 +7,19 @@ const express = require("express"),
 
       // Router import
       usersRouter = require('./routes/UserRoutes')
+      workshopsRouter = require('./routes/WorkshopsRoutes')
 
 app.use(express.json())
 app.use(cors())
 
 // Router prefixes
 app.use('/users', usersRouter)
+app.use('/workshops', workshopsRouter)
 
 mongoose.connect(
     config.HOST
 );
 
 app.listen(PORT,()=>{
-    console.log('Servers Runs')
+    console.log(`Servers Runs at port ${PORT}`)
 });
