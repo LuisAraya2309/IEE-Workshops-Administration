@@ -9,11 +9,10 @@ export function LoginPage () {
 
   let navigate = useNavigate()
 
-  const loggedIn = (userLogged,userPassword) =>{
+  const loggedIn = (userLogged) =>{
     // Loged and navigate to component main Menu
     let adminPath = '/AdminPage'
-    //navigate(adminPath,{state:{user:userLogged}})
-    alert("LOGED IN")
+    navigate(adminPath,{state:{user:userLogged}})
   }
 
   const onSubmit = async (data) => {
@@ -21,7 +20,6 @@ export function LoginPage () {
         const response = await axios.post('http://localhost:3001/users/login', data);
         console.log(response);
         const userLogged = response.data.email;
-        const userPassword = response.data.password;
         loggedIn(userLogged)
       } catch(err){
         alert('Usuario invalido')
