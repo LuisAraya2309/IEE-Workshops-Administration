@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import "./LoginPage.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../Layout';
 
 export function LoginPage () {
   const {register,handleSubmit} = useForm();
@@ -13,7 +14,6 @@ export function LoginPage () {
     // Loged and navigate to component main Menu
     let adminPath = '/AdminPage'
     navigate(adminPath,{state:{user:userLogged}})
-    alert("LOGED IN")
   }
 
   const onSubmit = async (data) => {
@@ -30,31 +30,33 @@ export function LoginPage () {
 
   return (
     <Fragment>
-    <div className='container'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Iniciar Sesion</h1>
+      <Layout>
+        <div className='container'>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Iniciar Sesion</h1>
 
-        <div class="inputBox">
-          <input type="email" 
-            placeholder="Correo"
-            id="email"
-            {...register('email',{required:true})}/>
-          <span>Correo</span>
-          <i></i>
+            <div className="inputBox">
+              <input type="email" 
+                placeholder="Correo"
+                id="email"
+                {...register('email',{required:true})}/>
+              <span>Correo</span>
+              <i></i>
+            </div>
+
+            <div className="inputBox">
+              <input type="password" 
+                placeholder="Contraseña"
+                id="password"
+                {...register('password',{required:true})} />
+              <span>Contraseña</span>
+              <i></i>
+            </div>
+
+            <input type="submit" value="Ingresar"/>  
+          </form>
         </div>
-
-        <div class="inputBox">
-          <input type="password" 
-            placeholder="Contraseña"
-            id="password"
-            {...register('password',{required:true})} />
-          <span>Contraseña</span>
-          <i></i>
-        </div>
-
-        <input type="submit" value="Ingresar"/>  
-      </form>
-    </div>
+      </Layout>
     </Fragment>
   )
 }

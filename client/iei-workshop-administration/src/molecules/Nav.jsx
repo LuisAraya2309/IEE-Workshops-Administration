@@ -3,17 +3,23 @@ import { Link } from "react-router-dom";
 import { Outlet  } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import logo from ".././resources/logoO.jpg"
+import logo from "../resources/logo.jpg"
+import { useNavigate } from 'react-router';
 import './nav.css';
 
 export default function Nav() {
+
+  const navigate = useNavigate();
+  const returnMainMenu = () => {
+    navigate('/AdminPage')
+  };
 
   return (
     <>
       <nav>
         <>
         <div className="nav--links" >
-          <img className="nav--logo" src={logo} alt="logo" />
+          <img className="nav--logo" src={logo} alt="logo" onClick = {returnMainMenu} />
           {
             <>
             <div className="user-login">
@@ -30,4 +36,3 @@ export default function Nav() {
     </>
   )
 }
-//box-shadow: 0px 4px 8px rgba(79, 94, 113, 0.1), 0px 2px 4px rgba(79, 94, 113, 0.11), 0px 0px 2px rgba(79, 94, 113, 0.12);

@@ -3,7 +3,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 80vh;
+    min-height: 85vh;
+
 }
 
 .image-container {
@@ -16,28 +17,125 @@
     margin-right: auto;
     margin-left: 76%;
   }
-  
-.purpleButton{
 
-    background: #4F4FB9;
-    border-radius: 8px;
-}
-
-.orangeButton{
-
-    background: #F9973C;
-    border-radius: 8px;
-}
-
-.greenButton{
-
-    background: #4CA2A2;
-    border-radius: 8px;
-}
-
-.backgorund {
-    background-image: url("./resources/background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  .layout {
+    margin: 0 50px 100px 50px;
+    
   }
+  
+  .card--grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    gap: 10px;
+  }
+  
+  .form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 15px;
+  }
+  
+  .card--dashboard {
+  
+    width: 600px;
+    height: 300px;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #656565;
+  }
+  
+  .title--dashboard{
+    margin-left: 20px;
+  }
+  
+  .card--dashboard img {
+    width: 100px;
+    position: relative;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);  
+  }
+  
+  .card--dashboard .description {
+    position: relative;
+    top: 55px;
+    margin-left: 20px;
+    font-style: italic;
+  }
+  
+  .card--dashboard button {
+    color: white;
+    border: 0px solid black;
+    border-radius: 3px;
+    background-color: #00A58E;
+    position: relative;
+    top: 0px;
+    left: 100%;
+    transform: translateX(-80px);
+    width: 60px;
+    height: 50px;
+  }
+  
+  .card--dashboard button:hover {
+    background-color: #007464;
+  }
+  
+  .dashboard--menu--btn--link {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .self-center {
+    align-self: center;
+  }
+  
+  .t1 {
+    align-self: center;
+    color: #0B186B;
+    margin: 0;
+  }
+  
+  .t2 {
+    align-self: center;
+    margin: 0;
+    color: #656565;
+    font-weight: normal;
+  }
+  
+  .t3 {
+    align-self: center;
+    color: #da0000;
+    margin: 0;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .width-80 {
+    width: 80%;
+  }
+  
+  .space-between {
+    justify-content: space-between;
+  }
+  
+  
+  .margin-20 {
+    margin: 20px;
+  }
+
+}

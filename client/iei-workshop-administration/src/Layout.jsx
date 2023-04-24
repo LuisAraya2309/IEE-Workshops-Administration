@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import circle from "./resources/image.png"
 import './Layout.css';
 
 const Layout = ({ children }) => {

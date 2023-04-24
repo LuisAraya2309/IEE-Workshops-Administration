@@ -22,4 +22,45 @@ router.post("/login", async (req,res) => {
     }
 })
 
+router.post("/addUser", async (req,res) => {
+    const newEmail = req.body.userEmail,
+    result = await UserModel.aggregate([{$match:{email:{$eq:newEmail}}}])
+
+if (result[0] === undefined){
+    await UserModel.insertMany({email: newEmail, name:req.body.name, password: req.body.password})
+    res.json({"message":`El usuario ${req.body.name} se registro exitosamente `})
+}
+else{
+    res.json({"message":"Error: El correo electrónico corresponde al de un usuario vigente."})
+}
+    
+})
+
+router.get("/getUsers", async (req,res) => {
+    const result = await UserModel.find({})   
+    res.json(result)    
+})
+
+router.post("/deleteUser", async (req,res) => {
+    const deleteUser = req.body.email,
+    result = await UserModel.deleteOne({"email":deleteUser})
+    res.json({"message":`El usuario ${req.body.name} fue eliminado `})
+})
+
+router.post("/editUser", async (req,res) => {
+    
+    const userEmail = req.body.userEmail,
+        result = await UserModel.aggregate([{$match:{email:{$eq:userEmail}}}])
+
+    if (result[0] !== undefined){
+        await UserModel.updateOne({email:userEmail},{$set:{password: req.body.password , name: req.body.name}})
+        res.json({"message":"Se modificaron los datos exitosamente"})
+    }
+    else{
+        res.json({"message":"Error: El correo electrónico no corresponde al de ningún usuario. "})
+    }
+    
+})
+
+
 module.exports = router;

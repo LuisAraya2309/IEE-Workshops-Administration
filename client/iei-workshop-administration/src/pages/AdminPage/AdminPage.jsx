@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Layout from '../../Layout';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -11,14 +13,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 export  function AdminPage() {
-  //const {state} = useLocation();
-  const userLogged = "" //state.user
 
-  let navigate = useNavigate()
-  const salirALogIn = () =>{
-    let logInPath = "/"
-    navigate(logInPath)
-  }
+  const {state} = useLocation(),
+  userLogged = state.user;
+  let navigate = useNavigate();
+
 
   const irAFormularios = () =>{
     /*let formsPath = "/"
@@ -39,9 +38,7 @@ export  function AdminPage() {
   }
 
   const irAagregarUsuarios = () =>{
-    /*let talleresPath = "/"
-    navigate(talleresPath, {state:{user:userLogged}}) // acá se pasa el email*/
-    alert("Va a agregar usuarios")
+    navigate("/Users") // acá se pasa el email
   }
 
   return (
