@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import circle from "../../resources/image.png"
+import circle from "./resources/image.png"
 
 const Layout = ({ children }) => {
   return (
