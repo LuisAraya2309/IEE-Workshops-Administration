@@ -1,5 +1,9 @@
 .Layout{
-  background: #F3F8FF;
+    background-image: url("./resources/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 80vh;
 }
 
 .image-container {
