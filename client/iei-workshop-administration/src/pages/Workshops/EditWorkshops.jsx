@@ -1,8 +1,8 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { InputLabel, MenuItem, Select, FormControl,Button,TextField ,Dialog,DialogTitle,DialogActions } from '@mui/material';
-
+import Layout from '../../Layout';
 
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
@@ -60,7 +60,7 @@ export function EditWorkshops() {
     workshopOptions();
   },[]);
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Editar Taller Existente</h1>
 
@@ -121,7 +121,7 @@ export function EditWorkshops() {
 
         </Dialog>
         
-    </Fragment>
+    </Layout>
     
   )
 }

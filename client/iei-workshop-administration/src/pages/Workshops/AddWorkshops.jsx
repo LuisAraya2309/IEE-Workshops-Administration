@@ -1,4 +1,4 @@
-import React, { Fragment , useState} from 'react'
+import React, { useState} from 'react'
 import { TextField ,Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../Layout';
 
 const useStyles = makeStyles({
     center: {
@@ -43,7 +44,7 @@ export function AddWorkshops() {
         }
     };
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Agregar Nuevo Taller</h1>
 
@@ -89,7 +90,7 @@ export function AddWorkshops() {
 
         </Dialog>
         
-    </Fragment>
+    </Layout>
     
   )
 }

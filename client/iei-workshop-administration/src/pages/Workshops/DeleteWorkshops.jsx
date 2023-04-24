@@ -1,4 +1,4 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import {Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Box from '@mui/material/Box';
 
@@ -7,6 +7,7 @@ import { InputLabel, MenuItem, Select, FormControl,Button } from '@mui/material'
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../Layout';
 
 const useStyles = makeStyles({
     center: {
@@ -56,7 +57,7 @@ export function DeleteWorkshops() {
   },[]);
 
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Eliminar Taller</h1>
 
@@ -114,7 +115,7 @@ export function DeleteWorkshops() {
             </DialogActions>
 
         </Dialog>
-    </Fragment>
+    </Layout>
     
   )
 }
