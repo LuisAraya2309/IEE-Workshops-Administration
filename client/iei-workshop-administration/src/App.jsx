@@ -17,7 +17,6 @@ export function App () {
     <div className="App">
       <Router>
         <Routes>
-        <Route path="" element={<Nav />}>
           <Route path="/" element={<LoginPage />} />
 
           <Route path="" element={<Nav />}>
