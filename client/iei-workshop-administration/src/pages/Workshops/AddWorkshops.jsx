@@ -29,17 +29,18 @@ export function AddWorkshops() {
             try{
                 const result = await axios.post('http://localhost:3001/workshops/addWorkshop', data);               
                 setNotificationText(result.data.message)
-                setOpen(true);                
-                if(notificationText === "Taller ingresado con éxito"){
-                    navigate('/Workshops')
-                }
+                setOpen(true);
+                
             }catch(err){
                 alert(err)
             }
-    }
+    },
 
-    const handleClose = () => {
+    handleClose = () => {
         setOpen(false);
+        if(notificationText === "Taller actualizado con éxito"){
+            navigate('/Workshops')
+        }
     };
   return (
     <Fragment>

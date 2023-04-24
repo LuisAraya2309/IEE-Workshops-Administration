@@ -1,7 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState,useEffect } from 'react'
+import {Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Box from '@mui/material/Box';
+
 import { makeStyles } from '@mui/styles';
-import { InputLabel, MenuItem, Select, FormControl,Button,TextField } from '@mui/material';
+import { InputLabel, MenuItem, Select, FormControl,Button } from '@mui/material';
+import axios from 'axios';
+import {useForm} from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
     center: {
@@ -16,7 +21,40 @@ const useStyles = makeStyles({
 
 export function DeleteWorkshops() {
 
-  const classes = useStyles()
+  const classes = useStyles(),
+    [workshops, setWorkshops] = useState([]),
+    {register,handleSubmit} = useForm(),
+    [open,setOpen] = useState(false),
+    navigate = useNavigate(),
+    [notificationText,setNotificationText] = useState(""),
+    onSubmit = async(data)=>{
+      try{
+        const result = await axios.post('http://localhost:3001/workshops/deleteWorkshop', data);               
+        setNotificationText(result.data.message)
+        setOpen(true);                
+        navigate('/Workshops')
+        
+      }catch(err){
+          alert(err)
+      }
+
+    },
+    handleClose = () => {
+      setOpen(false);
+  };
+  useEffect(()=>{
+    const workshopOptions = async() => {
+      try {
+        const response = await axios.get('http://localhost:3001/workshops/getWorkshop')
+        setWorkshops(response.data);
+        
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    workshopOptions();
+  },[]);
+
   return (
     <Fragment>
         
@@ -34,15 +72,21 @@ export function DeleteWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form >
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <h2> Seleccione el taller a eliminar</h2>
                     <FormControl sx={{minWidth: "50%" }}>
                 <InputLabel id="discount-client">Taller</InputLabel>
+
                 <Select 
                     labelId="select-client"
                     id="discount-client"
                     label="Taller"
+                    
+                    {...register('workshop',{required : true})}
                   >
+                    {workshops.map((option)=> (
+                      <MenuItem value={option.name} >{option.name}</MenuItem>
+                    ))}
                     
                 </Select>
                 <br />
@@ -55,7 +99,21 @@ export function DeleteWorkshops() {
                 </form>
             </Box>
         </div>
-        
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                {notificationText}
+            </DialogTitle>
+
+            <DialogActions>
+                <Button onClick={handleClose} autoFocus>Entendido</Button>
+            </DialogActions>
+
+        </Dialog>
     </Fragment>
     
   )
