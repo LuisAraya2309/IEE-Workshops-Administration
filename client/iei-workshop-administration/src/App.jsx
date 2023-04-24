@@ -3,17 +3,13 @@ import './App.css';
 
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import {AdminPage} from './pages/AdminPage/AdminPage';
-
 import { Workshops } from './pages/Workshops/Workshops';
 import { AddWorkshops } from './pages/Workshops/AddWorkshops';
 import { EditWorkshops } from './pages/Workshops/EditWorkshops';
 import { DeleteWorkshops } from './pages/Workshops/DeleteWorkshops';
-
 import { Users } from './pages/Users/Users';
 import { UserForm } from './pages/Users/UserForm';
-
 import Nav from './molecules/Nav';
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export function App () {
@@ -21,6 +17,7 @@ export function App () {
     <div className="App">
       <Router>
         <Routes>
+        <Route path="" element={<Nav />}>
           <Route path="/" element={<LoginPage />} />
 
           <Route path="" element={<Nav />}>
@@ -34,7 +31,6 @@ export function App () {
             <Route path="/UserForm" element={<UserForm />} />
             
           </Route>
-          
         </Routes>
       </Router>
     </div>

@@ -11,7 +11,6 @@ router.post("/login", async (req,res) => {
         "email":req.body.email,
         "password":req.body.password
     }
-    const test = await UserModel.find({})
     const result = await UserModel.aggregate([{$match:{email:{$eq:user.email}}},
         {$match:{password:{$eq:user.password}}}])
     // console.log(result)

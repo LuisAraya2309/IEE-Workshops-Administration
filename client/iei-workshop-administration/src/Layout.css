@@ -1,31 +1,28 @@
 .Layout{
-
     background-image: url("./resources/background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 85vh;
+
 }
 
 .image-container {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
+    align-items: left;
   }
   
   .image-container img {
     margin-right: auto;
-    margin-left: 0;
+    margin-left: 76%;
   }
-
 
   .layout {
     margin: 0 50px 100px 50px;
     
   }
   
-
   .card--grid {
     display: flex;
     justify-content: center;
@@ -140,3 +137,5 @@
   .margin-20 {
     margin: 20px;
   }
+
+}

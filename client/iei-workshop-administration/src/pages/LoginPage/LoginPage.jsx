@@ -1,4 +1,4 @@
-import React,{Fragment, useState} from 'react'
+import React,{Fragment} from 'react'
 import {useForm} from 'react-hook-form';
 import "./LoginPage.css"
 import axios from 'axios'
@@ -10,7 +10,7 @@ export function LoginPage () {
 
   let navigate = useNavigate()
 
-  const loggedIn = (userLogged,userPassword) =>{
+  const loggedIn = (userLogged) =>{
     // Loged and navigate to component main Menu
     let adminPath = '/AdminPage'
     navigate(adminPath,{state:{user:userLogged}})
@@ -21,7 +21,6 @@ export function LoginPage () {
         const response = await axios.post('http://localhost:3001/users/login', data);
         console.log(response);
         const userLogged = response.data.email;
-        const userPassword = response.data.password;
         loggedIn(userLogged)
       } catch(err){
         alert('Usuario invalido')
