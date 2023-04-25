@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 import { InputLabel, MenuItem, Select, FormControl,Button } from '@mui/material';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import Layout from '../../Layout';
 import "./Workshops.css"
 
@@ -22,7 +22,9 @@ const useStyles = makeStyles({
 
 
 export function DeleteWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
   const classes = useStyles(),
     [workshops, setWorkshops] = useState([]),
     {register,handleSubmit} = useForm(),
@@ -34,7 +36,7 @@ export function DeleteWorkshops() {
         const result = await axios.post('http://localhost:3001/workshops/deleteWorkshop', data);               
         setNotificationText(result.data.message)
         setOpen(true);                
-        navigate('/Workshops')
+        navigate('/Workshops',sendingUser)
         
       }catch(err){
           alert(err)
@@ -93,6 +95,7 @@ export function DeleteWorkshops() {
                     
                 </Select>
                 <br />
+                &nbsp;
                 <Button type="submit"  color="primary" variant="contained" >
                         Eliminar
                 </Button>

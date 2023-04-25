@@ -7,7 +7,7 @@ import "./Workshops.css"
 
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 const useStyles = makeStyles({
     center: {
       display: 'flex',
@@ -20,7 +20,9 @@ const useStyles = makeStyles({
 
 
 export function EditWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
   const classes = useStyles(),
   [workshops, setWorkshops] = useState([]),
   {register,handleSubmit} = useForm(),
@@ -43,7 +45,7 @@ export function EditWorkshops() {
     setOpen(false);
     console.log(typeof(notificationText))
     if(notificationText === "Taller actualizado con éxito"){
-      navigate('/Workshops')
+      navigate('/Workshops',sendingUser)
     }
   };
   useEffect(()=>{
@@ -80,7 +82,7 @@ export function EditWorkshops() {
                 <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Seleccione el taller a editar</h2>
                     <br/>
-                    <FormControl sx={{minWidth: "50%" }}>            
+                <FormControl sx={{minWidth: "50%" }}>            
                 <InputLabel id="workshop">Taller</InputLabel>                
                 <Select 
                     labelId="workshop"
@@ -94,11 +96,16 @@ export function EditWorkshops() {
                     ))}
                     
                 </Select>
+                </FormControl> 
                 <br />
                 <h2> Ingrese el nuevo nombre del taller</h2>
                 <br/>
+                &nbsp;
+                <FormControl sx={{minWidth: "50%" }}>
                 <TextField required id="name" label="Nombre" variant="filled" {...register('newWorkshop',{required : true})} />
                 <br/>
+                <br/>
+                &nbsp;
                 <Button type="submit"  color="primary" variant="contained" >
                         Editar
                 </Button>

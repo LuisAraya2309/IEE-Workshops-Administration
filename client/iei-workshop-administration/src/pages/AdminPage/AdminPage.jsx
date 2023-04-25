@@ -25,7 +25,9 @@ export function AdminPage() {
         spacing={4}
         justifyContent="center"
       >
+        
         <Box sx={{ '& button': { m: 1 } }}>
+        <h1>Menú Principal</h1>
           <br /> <br /> <br />
           <div>
             <Button

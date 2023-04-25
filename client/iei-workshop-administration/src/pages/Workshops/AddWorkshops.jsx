@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import Layout from '../../Layout';
 import "./Workshops.css"
 
@@ -19,7 +19,9 @@ const useStyles = makeStyles({
   });
 
 export function AddWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
  
   const classes = useStyles(),
         [open,setOpen] = useState(false),
@@ -40,8 +42,8 @@ export function AddWorkshops() {
 
     handleClose = () => {
         setOpen(false);
-        if(notificationText === "Taller actualizado con éxito"){
-            navigate('/Workshops')
+        if(notificationText === "Taller ingresado con éxito"){
+            navigate('/Workshops',sendingUser)
         }
     };
   return (
