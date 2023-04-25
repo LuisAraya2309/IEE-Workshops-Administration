@@ -27,11 +27,42 @@ export function LoginPage () {
       }
   }
  
-
   return (
     <Fragment>
       <Layout>
-        <div className='container'>
+        
+        <body className = "login-body">
+          <div className="login-box">
+            <img src="../../resources/logoO.jpg" className="avatar"/>
+            <h1>Inicio de sesión</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+             
+              <label htmlFor="username">Correo electrónico</label>
+              <input type="text" 
+                placeholder="Ingrese su correo"
+                {...register('email',{required:true})}
+              />
+                
+              
+              <label htmlFor="password">Contraseña</label>
+              <input type="password" 
+                placeholder="Ingrese su contraseña"
+                {...register('password',{required:true})}
+              />
+              <input type="submit" value="Iniciar sesión"/>
+              <a href="#">Olvidaste la contraseña?</a>
+              <a href="#">  No tienes una cuenta?</a>
+            </form>
+          </div>
+        </body>
+
+      </Layout>
+    </Fragment>
+  )
+}
+
+/*
+<div className='container'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Iniciar Sesion</h1>
 
@@ -56,7 +87,4 @@ export function LoginPage () {
             <input type="submit" value="Ingresar"/>  
           </form>
         </div>
-      </Layout>
-    </Fragment>
-  )
-}
+*/
