@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { InputLabel, MenuItem, Select, FormControl,Button,TextField ,Dialog,DialogTitle,DialogActions } from '@mui/material';
 import Layout from '../../Layout';
+import "./Workshops.css"
 
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
@@ -76,13 +77,14 @@ export function EditWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Seleccione el taller a editar</h2>
-                    <FormControl sx={{minWidth: "50%" }}>
-                <InputLabel id="discount-client">Taller</InputLabel>
+                    <br/>
+                    <FormControl sx={{minWidth: "50%" }}>            
+                <InputLabel id="workshop">Taller</InputLabel>                
                 <Select 
-                    labelId="select-client"
-                    id="discount-client"
+                    labelId="workshop"
+                    id="workshop"
                     label="Taller"
                     
                     {...register('oldWorkshop',{required : true})}
@@ -94,6 +96,7 @@ export function EditWorkshops() {
                 </Select>
                 <br />
                 <h2> Ingrese el nuevo nombre del taller</h2>
+                <br/>
                 <TextField required id="name" label="Nombre" variant="filled" {...register('newWorkshop',{required : true})} />
                 <br/>
                 <Button type="submit"  color="primary" variant="contained" >

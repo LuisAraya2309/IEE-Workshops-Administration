@@ -8,6 +8,7 @@ import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../Layout';
+import "./Workshops.css"
 
 const useStyles = makeStyles({
     center: {
@@ -73,8 +74,9 @@ export function DeleteWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Seleccione el taller a eliminar</h2>
+                    <br/>
                     <FormControl sx={{minWidth: "50%" }}>
                 <InputLabel id="discount-client">Taller</InputLabel>
 

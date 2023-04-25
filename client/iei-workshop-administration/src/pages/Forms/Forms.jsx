@@ -3,8 +3,7 @@ import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
 import {TextField, Box, InputLabel} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Carousel, Form, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import './Forms.css'
 
 const useStyles = makeStyles({
     center: {
@@ -39,7 +38,8 @@ export function Forms() {
                         noValidate
                         autoComplete="off"
                     >
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                    
+                        <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                             <div className="form-grid">                                
                                 <TextField sx={{width:{md: "49%"}}} id="formDate" variant="outlined"
                                     label="Fecha de Evaluación" 
@@ -84,11 +84,13 @@ export function Forms() {
 
                             
                         </form>
+                        
                     </Box>
+                    
                 </div>
             </center>
             
-        </Layout>
+            </Layout>
         
     );
 }

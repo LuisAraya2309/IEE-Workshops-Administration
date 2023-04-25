@@ -7,6 +7,7 @@ import axios from 'axios';
 import {useForm} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../Layout';
+import "./Workshops.css"
 
 const useStyles = makeStyles({
     center: {
@@ -60,9 +61,9 @@ export function AddWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Ingrese el nombre del nuevo taller </h2>
-
+                    <br/>
                     <TextField required id="name" label="Nombre" variant="filled" {...register('workshop',{required : true})} />
                     <br/>
                     <br/>
