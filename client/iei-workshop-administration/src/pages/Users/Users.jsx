@@ -9,9 +9,11 @@ import {TextField} from '@mui/material';
 import Layout from '../../Layout';
 import './Users.css'
 export function Users() {
+
   const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
+  userLogged = state.user
+  console.log(userLogged);
+
   const [data, setData] = useState([]),
   [ search, setSearch ] = useState("")
 
@@ -23,7 +25,7 @@ export function Users() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/UserForm", sendingUser);
+    navigate("/UserForm", {state: {user:userLogged, transaction:"Add"}});
   }
 
   const editUser = (user) => {
@@ -32,7 +34,8 @@ export function Users() {
       name: user.name,
       email: user.email,
       password: user.password,
-      user:userLogged
+      user:userLogged,
+      transaction:"Edit"
     }});
   }
   //Search function

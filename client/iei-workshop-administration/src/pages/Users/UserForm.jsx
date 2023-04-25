@@ -17,11 +17,8 @@ const useStyles = makeStyles({
   });
 
 export function UserForm() {
-  const location = useLocation();
 
-  const [name, setName] = useState(location.state === null ? "" : location.state.name),
-  [email, setEmail] = useState(location.state === null ? "" : location.state.email),
-  [password, setPassword] = useState(location.state === null ? "" : location.state.password),
+  const {state} = useLocation(),
   navigate = useNavigate(),
   classes = useStyles(),
   {register,handleSubmit} = useForm(),
@@ -30,7 +27,7 @@ export function UserForm() {
   onSubmit = async(data)=>{
     try{
       
-        if(location.state.email === null){  //new client
+        if(state.transaction === "Add"){  //new client
             try{
                 const result = await axios.post('http://localhost:3001/users/addUser', data);
                 setNotificationText(result.data.message)
@@ -55,7 +52,7 @@ export function UserForm() {
   },
   handleClose = () => {
     setOpen(false);
-    navigate('/Users',)
+    navigate('/Users',{state:{user: state.user}} )
   };
 
   return (
@@ -64,7 +61,7 @@ export function UserForm() {
 <Fragment>
         <br /><br />
         <h1>Gestionar Usuario</h1>
-        <br /><br /><br />
+        <br /><br /><br /><br />
         <div className={classes.center}>
             <Box
 
@@ -82,25 +79,24 @@ export function UserForm() {
                 <br />
                 
                 <TextField  required id={"name"} label={"Nombre"} variant="outlined" 
-                onChange={(e) => {setName(e.target.value);}}
-                defaultValue={name}
+                defaultValue={state.name}
                 inputProps={{ maxLength: 100 }}
                 {...register('name',{required : true})}
                 />
                 <br />
                 &nbsp;
                 <TextField  required id={"email"} label={"Email"} variant="outlined" 
-                onChange={(e) => {setEmail(e.target.value);}}
-                defaultValue={email}
+                defaultValue={state.email}
                 inputProps={{ maxLength: 100 }}
+                type = "email"
                 {...register('userEmail',{required : true})}
                 />
                 <br />
                 &nbsp;
                 <TextField  required id={"password"} label={"Contraseña"} variant="outlined" 
-                onChange={(e) => {setPassword(e.target.value);}}
-                defaultValue={password} 
+                defaultValue={state.password} 
                 inputProps={{ maxLength: 8 }}
+                type = "password"
                 {...register('password',{required : true})}
                 />                
                 <br />
