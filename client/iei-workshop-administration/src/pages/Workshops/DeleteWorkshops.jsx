@@ -1,4 +1,4 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import {Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Box from '@mui/material/Box';
 
@@ -6,7 +6,9 @@ import { makeStyles } from '@mui/styles';
 import { InputLabel, MenuItem, Select, FormControl,Button } from '@mui/material';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
+import Layout from '../../Layout';
+import "./Workshops.css"
 
 const useStyles = makeStyles({
     center: {
@@ -20,7 +22,9 @@ const useStyles = makeStyles({
 
 
 export function DeleteWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
   const classes = useStyles(),
     [workshops, setWorkshops] = useState([]),
     {register,handleSubmit} = useForm(),
@@ -32,7 +36,7 @@ export function DeleteWorkshops() {
         const result = await axios.post('http://localhost:3001/workshops/deleteWorkshop', data);               
         setNotificationText(result.data.message)
         setOpen(true);                
-        navigate('/Workshops')
+        navigate('/Workshops',sendingUser)
         
       }catch(err){
           alert(err)
@@ -56,7 +60,7 @@ export function DeleteWorkshops() {
   },[]);
 
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Eliminar Taller</h1>
 
@@ -72,8 +76,9 @@ export function DeleteWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Seleccione el taller a eliminar</h2>
+                    <br/>
                     <FormControl sx={{minWidth: "50%" }}>
                 <InputLabel id="discount-client">Taller</InputLabel>
 
@@ -90,6 +95,7 @@ export function DeleteWorkshops() {
                     
                 </Select>
                 <br />
+                &nbsp;
                 <Button type="submit"  color="primary" variant="contained" >
                         Eliminar
                 </Button>
@@ -114,7 +120,7 @@ export function DeleteWorkshops() {
             </DialogActions>
 
         </Dialog>
-    </Fragment>
+    </Layout>
     
   )
 }

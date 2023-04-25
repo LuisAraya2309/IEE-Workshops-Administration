@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import SimpleCard from '../../atomics/SimpleCard';
 import AddButton from '../../atomics/AddButton';
-import { useNavigate } from 'react-router';
+import { useNavigate,useLocation } from 'react-router';
 import axios from 'axios';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import {TextField} from '@mui/material';
 import Layout from '../../Layout';
-
+import './Users.css'
 export function Users() {
+
+  const {state} = useLocation(),
+  userLogged = state.user
+  console.log(userLogged);
+
   const [data, setData] = useState([]),
   [ search, setSearch ] = useState("")
 
@@ -20,7 +25,7 @@ export function Users() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/UserForm", {state: null});
+    navigate("/UserForm", {state: {user:userLogged, transaction:"Add"}});
   }
 
   const editUser = (user) => {
@@ -28,7 +33,9 @@ export function Users() {
     navigate("/UserForm", {state: {
       name: user.name,
       email: user.email,
-      password: user.password
+      password: user.password,
+      user:userLogged,
+      transaction:"Edit"
     }});
   }
   //Search function

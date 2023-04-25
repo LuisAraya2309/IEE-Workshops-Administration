@@ -1,12 +1,13 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { InputLabel, MenuItem, Select, FormControl,Button,TextField ,Dialog,DialogTitle,DialogActions } from '@mui/material';
-
+import Layout from '../../Layout';
+import "./Workshops.css"
 
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 const useStyles = makeStyles({
     center: {
       display: 'flex',
@@ -19,7 +20,9 @@ const useStyles = makeStyles({
 
 
 export function EditWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
   const classes = useStyles(),
   [workshops, setWorkshops] = useState([]),
   {register,handleSubmit} = useForm(),
@@ -42,7 +45,7 @@ export function EditWorkshops() {
     setOpen(false);
     console.log(typeof(notificationText))
     if(notificationText === "Taller actualizado con éxito"){
-      navigate('/Workshops')
+      navigate('/Workshops',sendingUser)
     }
   };
   useEffect(()=>{
@@ -60,7 +63,7 @@ export function EditWorkshops() {
     workshopOptions();
   },[]);
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Editar Taller Existente</h1>
 
@@ -76,13 +79,14 @@ export function EditWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Seleccione el taller a editar</h2>
-                    <FormControl sx={{minWidth: "50%" }}>
-                <InputLabel id="discount-client">Taller</InputLabel>
+                    <br/>
+                <FormControl sx={{minWidth: "50%" }}>            
+                <InputLabel id="workshop">Taller</InputLabel>                
                 <Select 
-                    labelId="select-client"
-                    id="discount-client"
+                    labelId="workshop"
+                    id="workshop"
                     label="Taller"
                     
                     {...register('oldWorkshop',{required : true})}
@@ -92,10 +96,16 @@ export function EditWorkshops() {
                     ))}
                     
                 </Select>
+                </FormControl> 
                 <br />
                 <h2> Ingrese el nuevo nombre del taller</h2>
+                <br/>
+                &nbsp;
+                <FormControl sx={{minWidth: "50%" }}>
                 <TextField required id="name" label="Nombre" variant="filled" {...register('newWorkshop',{required : true})} />
                 <br/>
+                <br/>
+                &nbsp;
                 <Button type="submit"  color="primary" variant="contained" >
                         Editar
                 </Button>
@@ -121,7 +131,7 @@ export function EditWorkshops() {
 
         </Dialog>
         
-    </Fragment>
+    </Layout>
     
   )
 }

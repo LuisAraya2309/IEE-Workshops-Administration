@@ -11,6 +11,7 @@ import { Users } from './pages/Users/Users';
 import { UserForm } from './pages/Users/UserForm';
 import Nav from './molecules/Nav';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Forms } from './pages/Forms/Forms';
 
 export function App () {
   return (
@@ -21,6 +22,7 @@ export function App () {
 
           <Route path="" element={<Nav />}>
             <Route path="/AdminPage" element={<AdminPage />} />
+
             <Route path="/Workshops" element={<Workshops />} />
             <Route path="/AddWorkshops" element={<AddWorkshops />} />
             <Route path="/EditWorkshops" element={<EditWorkshops />} />
@@ -28,6 +30,8 @@ export function App () {
 
             <Route path="/Users" element={<Users />} />
             <Route path="/UserForm" element={<UserForm />} />
+
+            <Route path="/Forms" element={<Forms />} />
             
           </Route>
         </Routes>

@@ -1,11 +1,13 @@
-import React, { Fragment , useState} from 'react'
+import React, { useState} from 'react'
 import { TextField ,Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios';
 import {useForm} from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
+import Layout from '../../Layout';
+import "./Workshops.css"
 
 const useStyles = makeStyles({
     center: {
@@ -17,7 +19,9 @@ const useStyles = makeStyles({
   });
 
 export function AddWorkshops() {
-
+  const {state} = useLocation(),
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
  
   const classes = useStyles(),
         [open,setOpen] = useState(false),
@@ -38,12 +42,12 @@ export function AddWorkshops() {
 
     handleClose = () => {
         setOpen(false);
-        if(notificationText === "Taller actualizado con éxito"){
-            navigate('/Workshops')
+        if(notificationText === "Taller ingresado con éxito"){
+            navigate('/Workshops',sendingUser)
         }
     };
   return (
-    <Fragment>
+    <Layout>
         
         <h1>Agregar Nuevo Taller</h1>
 
@@ -59,9 +63,9 @@ export function AddWorkshops() {
             noValidate
             autoComplete="off"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                     <h2> Ingrese el nombre del nuevo taller </h2>
-
+                    <br/>
                     <TextField required id="name" label="Nombre" variant="filled" {...register('workshop',{required : true})} />
                     <br/>
                     <br/>
@@ -89,7 +93,7 @@ export function AddWorkshops() {
 
         </Dialog>
         
-    </Fragment>
+    </Layout>
     
   )
 }

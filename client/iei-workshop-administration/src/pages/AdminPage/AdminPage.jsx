@@ -9,35 +9,13 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-export  function AdminPage() {
+export function AdminPage() {
 
   const {state} = useLocation(),
-  userLogged = state.user;
+  userLogged = state.user,
+  sendingUser = {state:{user:userLogged}}
   let navigate = useNavigate();
-
-
-  const irAFormularios = () =>{
-    /*let formsPath = "/"
-    navigate(formsPath, {state:{user:userLogged}}) // acá se pasa el email*/
-    alert("Va a crear formularios")
-  }
-
-  const irAMetricas = () =>{
-    /*let metricasPath = "/"
-    navigate(metricasPath, {state:{user:userLogged}}) // acá se pasa el email*/
-    alert("Va a ver las metricas")
-  }
-
-  const irAEditarTalleres = () =>{
-    /*let talleresPath = "/"
-    navigate(talleresPath, {state:{user:userLogged}}) // acá se pasa el email*/
-    alert("Va a editar los talleres")
-  }
-
-  const irAagregarUsuarios = () =>{
-    navigate("/Users") // acá se pasa el email
-  }
-
+  
   return (
     <Layout>
     <Stack spacing={4}>
@@ -47,7 +25,9 @@ export  function AdminPage() {
         spacing={4}
         justifyContent="center"
       >
+        
         <Box sx={{ '& button': { m: 1 } }}>
+        <h1>Menú Principal</h1>
           <br /> <br /> <br />
           <div>
             <Button
@@ -55,7 +35,7 @@ export  function AdminPage() {
               size="large"
               color="success"
               variant="contained" 
-              onClick={irAFormularios}>
+              onClick={()=>{navigate("/Forms", sendingUser)}}>
                 Nuevo Formulario
             </Button>
           </div>
@@ -66,7 +46,7 @@ export  function AdminPage() {
               startIcon={<LeaderboardIcon />}
               color="success"
               variant="outlined"
-              onClick={irAMetricas}>
+              onClick={()=>{navigate("/Metrics", sendingUser)}}>
                 Análisis de información
             </Button>
           </div>
@@ -77,7 +57,7 @@ export  function AdminPage() {
               startIcon={<EditIcon />}
               color="success"
               variant="contained"
-              onClick={irAEditarTalleres}>
+              onClick={()=>{navigate("/Workshops", sendingUser)}}>
                 Modulo de gestión
             </Button>
           </div>
@@ -88,7 +68,7 @@ export  function AdminPage() {
               startIcon={<PersonAddIcon />}
               color="success"
               variant="outlined"
-              onClick={irAagregarUsuarios}>
+              onClick={()=>{navigate("/Users", sendingUser)}}>
                 Registrar un usuario    
             </Button>
           </div>
