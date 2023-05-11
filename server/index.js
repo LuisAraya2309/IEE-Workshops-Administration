@@ -6,8 +6,9 @@ const express = require("express"),
       PORT = config.PORT,
 
       // Router import
-      usersRouter = require('./routes/UserRoutes')
-      workshopsRouter = require('./routes/WorkshopsRoutes')
+      usersRouter = require('./routes/UserRoutes'),
+      workshopsRouter = require('./routes/WorkshopsRoutes'),
+      formsRouter = require('./routes/FormRoutes'),
 
 app.use(express.json())
 app.use(cors())

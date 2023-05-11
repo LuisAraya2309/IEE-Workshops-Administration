@@ -1,10 +1,11 @@
 import React from 'react';
 import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
-import {TextField, Box, InputLabel,Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
+import {TextField, Box, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Forms.css'
+import axios from 'axios'
 
 const useStyles = makeStyles({
     center: {
@@ -21,8 +22,10 @@ export function Forms() {
     sendingUser = {state:{user:userLogged}}
     const classes = useStyles();
     const {register,handleSubmit} = useForm();
+    
     const onSubmit = async(data)=>{
-        console.log("Send form")
+        const response = await axios.post('http://localhost:3001/forms/login', data);
+        console.log(response);
     }
     return (
         <Layout>
