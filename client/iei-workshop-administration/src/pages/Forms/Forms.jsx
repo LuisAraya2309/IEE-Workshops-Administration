@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
-import {TextField, Box, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
+import {TextField,Button, Box, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useLocation } from 'react-router-dom';
 import './Forms.css'
@@ -22,10 +22,10 @@ export function Forms() {
     sendingUser = {state:{user:userLogged}}
     const classes = useStyles();
     const {register,handleSubmit} = useForm();
-    
+
     const onSubmit = async(data)=>{
-        const response = await axios.post('http://localhost:3001/forms/login', data);
-        console.log(response);
+        //const response = await axios.post('http://localhost:3001/forms/login', data);
+        console.log(data);
     }
     return (
         <Layout>
@@ -49,7 +49,6 @@ export function Forms() {
                         noValidate
                         autoComplete="off"
                     >
-                    
                         <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
                             <div className="form-grid">                                
                                 <TextField sx={{width:{md: "49%"}}} id="formDate" variant="outlined"
@@ -57,7 +56,7 @@ export function Forms() {
                                     type = "date"
                                     required
                                     inputProps={{ maxLength: 100 }}
-                                    {...register('formDate',{required : true})}
+                                    {...register('formDate',{required : false})}
                                 />
 
                                 <TextField sx={{width:{md: "49%"}}} id="teacher" variant="outlined"
@@ -65,7 +64,7 @@ export function Forms() {
                                     type = "text"
                                     required
                                     inputProps={{ maxLength: 100 }}
-                                    {...register('teacher',{required : true})}
+                                    {...register('teacher',{required : false})}
                                 />
 
                                 <TextField sx={{width:{md: "49%"}}} id="partner" variant="outlined"
@@ -73,7 +72,7 @@ export function Forms() {
                                     type = "text"
                                     required
                                     inputProps={{ maxLength: 100 }}
-                                    {...register('partner',{required : true})}
+                                    {...register('partner',{required : false})}
                                 />
 
                                 <TextField sx={{width:{md: "49%"}}} id="participants" variant="outlined"
@@ -81,14 +80,14 @@ export function Forms() {
                                     type = "number"
                                     required
                                     inputProps={{ maxLength: 100 }}
-                                    {...register('participants',{required : true})}
+                                    {...register('participantsAmount',{required : false})}
                                 />
                                 <TextField sx={{width:{md: "100%"}}} id="participantsNames"  variant="outlined" 
                                     required 
                                     multiline 
                                     rows={6}
                                     label="Nombre de los participantes"
-                                    {...register('participantsNames',{required : true})}
+                                    {...register('participantsList',{required : false})}
                                 />                                            
                                 <h5>1-Evaluación sobre el desempeño del profesor:</h5>            
                                 <FormControl>                                
@@ -97,6 +96,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('clearInstructions',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -104,12 +104,15 @@ export function Forms() {
                                         
                                     </RadioGroup>
                                 </FormControl>
+                                
+                                
                                 <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Relación de respeto y autoridad con los estudiantes.</FormLabel>
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('respectAuthority',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -123,6 +126,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('rulesLimits',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -136,6 +140,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('activeParticipation',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -149,6 +154,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('positiveEnvironment',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -163,6 +169,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('positiveGuidance',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -175,7 +182,7 @@ export function Forms() {
                                     multiline 
                                     rows={6}
                                     label="Observaciones"
-                                    {...register('firstObservations',{required : true})}
+                                    {...register('performanceNotes',{required : false})}
                                 /> 
                                 <h5>2-Evaluación del desempeño conductual de los estudiantes:</h5>
                                 <FormControl>                                
@@ -184,6 +191,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('followInstructions',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -197,6 +205,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('respectfulTreat',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -210,6 +219,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('positiveCoexistence',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -223,6 +233,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('interestParticipation',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -236,6 +247,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('cleanPresentation',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -250,6 +262,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('toolCorrectUsage',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -262,7 +275,7 @@ export function Forms() {
                                     multiline 
                                     rows={6}
                                     label="Observaciones"
-                                    {...register('secondObservations',{required : true})}
+                                    {...register('behavioralNotes',{required : false})}
                                 />
                                 <h5>3-Evaluación del rendimiento ocupacional de los estudiantes:</h5>
 
@@ -272,6 +285,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('technicalFormation',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -285,6 +299,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('topicsMatch',{required : false})}
                                     >
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
                                         <FormControlLabel value="2" control={<Radio />} label="2" />
@@ -297,7 +312,7 @@ export function Forms() {
                                     multiline 
                                     rows={6}
                                     label="Escriba los temas y las habilidades técnicas vistas en el taller (consultar al profesor)"
-                                    {...register('topics',{required : true})}
+                                    {...register('ocupationNotes',{required : false})}
                                 />
                                 <h5>4-Evaluación de habilidades blandas y sociales de los estudiantes durante el taller.</h5>
                                 <FormControl>
@@ -306,11 +321,12 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('perseverance',{required : false})}
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="1" />
-                                        <FormControlLabel value="1" control={<Radio />} label="2" />
-                                        <FormControlLabel value="2" control={<Radio />} label="3" />
-                                        <FormControlLabel value="3" control={<Radio />} label="4" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" />
+                                        <FormControlLabel value="2" control={<Radio />} label="2" />
+                                        <FormControlLabel value="3" control={<Radio />} label="3" />
                                     </RadioGroup>                                       
                                 </FormControl>
                                 <FormControl>
@@ -319,6 +335,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('asertiveCommunication',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -332,6 +349,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('responsability',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -345,6 +363,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('positiveActitude',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -358,6 +377,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('managesFrustration',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -371,6 +391,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('proactivity',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -384,6 +405,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('valuesWork',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -397,6 +419,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('manifestsAutonomy',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -410,6 +433,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('workSecurity',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -423,6 +447,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('manifestInterest',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -436,6 +461,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('convivence',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -449,6 +475,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('teamwork',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -462,6 +489,7 @@ export function Forms() {
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
+                                        {...register('creativity',{required : false})}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="0" />
                                         <FormControlLabel value="1" control={<Radio />} label="1" />
@@ -474,11 +502,19 @@ export function Forms() {
                                     multiline 
                                     rows={6}
                                     label="Observaciones"
-                                    {...register('thirdObservations',{required : true})}
+                                    {...register('softSkillsNotes',{required : false})}
                                 />
+                    
                             </div>
 
-                            
+                        <Button
+                            type="submit" 
+                            size="large"
+                            color="success"
+                            variant="outlined"
+                            >
+                                Enviar Evaluación    
+                        </Button>
                         </form>
                         
                     </Box>

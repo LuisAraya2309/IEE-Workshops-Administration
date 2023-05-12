@@ -10,12 +10,12 @@ const FormsSchema = new mongoose.Schema({
 
     //Teacher performance
     teacherPerformance:{
+        clearInstructions : Number,
         respectAuthority : Number,
         rulesLimits : Number,
         activeParticipation : Number,
         positiveEnvironment : Number,
         positiveGuidance : Number,
-        clearInstructions : Number,
         performanceNotes : String,
     },
     
