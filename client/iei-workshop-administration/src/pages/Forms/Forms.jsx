@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
-import {TextField,Button, Box, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
+import {TextField,Button,MenuItem, Box,Select,InputLabel, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useLocation } from 'react-router-dom';
 import './Forms.css'
@@ -18,15 +18,34 @@ const useStyles = makeStyles({
 
 export function Forms() {
     const {state} = useLocation(),
+    {register,handleSubmit} = useForm(),
+    [workshops, setWorkshops] = useState([]),
     userLogged = state.user,
     sendingUser = {state:{user:userLogged}}
-    const classes = useStyles();
-    const {register,handleSubmit} = useForm();
+    
+    
 
+    //Submit function for form
     const onSubmit = async(data)=>{
         //const response = await axios.post('http://localhost:3001/forms/login', data);
         console.log(data);
     }
+
+    //Update form styles
+    useStyles();
+
+    //Get workshops from database
+    useEffect(()=>{
+        const workshopOptions = async() => {
+          try {
+            const response = await axios.get('http://localhost:3001/workshops/getWorkshop')
+            setWorkshops(response.data);
+          } catch (err) {
+            console.error(err);
+          }
+        };
+        workshopOptions();
+      },[]);
     return (
         <Layout>
             <br/>
@@ -50,7 +69,23 @@ export function Forms() {
                         autoComplete="off"
                     >
                         <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
-                            <div className="form-grid">                                
+                                                                  
+                            <div className="form-grid">
+                                <FormControl sx={{minWidth: "99%" }}>            
+                                        <InputLabel id="workshop">Taller</InputLabel>                
+                                        <Select 
+                                                labelId="workshop"
+                                                id="workshop"
+                                                label="Taller"
+                                                
+                                                {...register('workshop',{required : true})}
+                                            >
+                                                {workshops.map((option)=> (
+                                                <MenuItem value={option.name} >{option.name}</MenuItem>
+                                                ))}
+                                    
+                                        </Select>
+                                </FormControl>                                  
                                 <TextField sx={{width:{md: "49%"}}} id="formDate" variant="outlined"
                                     label="Fecha de Evaluación" 
                                     type = "date"
@@ -92,32 +127,30 @@ export function Forms() {
                                 <h5>1-Evaluación sobre el desempeño del profesor:</h5>            
                                 <FormControl>
                                     <FormLabel id="demo-row-radio-buttons-group-label">Brinda indicaciones claras.</FormLabel>
-                                    <RadioGroup
+                                    <RadioGroup                            
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
                                         name="row-radio-buttons-group"
-                                        {...register('clearInstructions',{required : false})}
-                                    >
-                                        <FormControlLabel value='1' control={<Radio />} label="1" />
-                                        <FormControlLabel value='2' control={<Radio />} label="2" />
-                                        <FormControlLabel value='3' control={<Radio />} label="3" />
                                         
+                                    >
+                                        <FormControlLabel value='1' control={<Radio />} label="1" {...register('clearInstructions',{required : false})}/>
+                                        <FormControlLabel value='2' control={<Radio />} label="2" {...register('clearInstructions',{required : false})}/>
+                                        <FormControlLabel value='3' control={<Radio />} label="3" {...register('clearInstructions',{required : false})}/>                                        
                                     </RadioGroup>
                                     
                                 </FormControl>
                                 
-                                {/*
+                                
                                 <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Relación de respeto y autoridad con los estudiantes.</FormLabel>
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('respectAuthority',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('respectAuthority',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('respectAuthority',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('respectAuthority',{required : false})}/>
                                         
                                     </RadioGroup> 
                                 </FormControl>
@@ -126,12 +159,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('rulesLimits',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('rulesLimits',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('rulesLimits',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('rulesLimits',{required : false})}/>
                                         
                                     </RadioGroup> 
                                 </FormControl>
@@ -140,12 +172,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('activeParticipation',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('activeParticipation',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('activeParticipation',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('activeParticipation',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>  
@@ -154,12 +185,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('positiveEnvironment',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveEnvironment',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveEnvironment',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveEnvironment',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>
@@ -169,12 +199,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('positiveGuidance',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveGuidance',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveGuidance',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveGuidance',{required : false})}/>
                                         
                                     </RadioGroup>                                       
                                 </FormControl>
@@ -191,12 +220,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('followInstructions',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('followInstructions',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('followInstructions',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('followInstructions',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>
@@ -205,12 +233,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('respectfulTreat',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('respectfulTreat',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('respectfulTreat',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('respectfulTreat',{required : false})}/>
                                         
                                     </RadioGroup> 
                                 </FormControl>
@@ -219,12 +246,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('positiveCoexistence',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveCoexistence',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveCoexistence',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveCoexistence',{required : false})}/>
                                         
                                     </RadioGroup> 
                                 </FormControl>
@@ -233,12 +259,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('interestParticipation',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('interestParticipation',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('interestParticipation',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('interestParticipation',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>  
@@ -247,12 +272,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('cleanPresentation',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('cleanPresentation',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('cleanPresentation',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('cleanPresentation',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>
@@ -262,12 +286,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('toolCorrectUsage',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('toolCorrectUsage',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('toolCorrectUsage',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('toolCorrectUsage',{required : false})}/>
                                         
                                     </RadioGroup>                                       
                                 </FormControl>
@@ -285,12 +308,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('technicalFormation',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('technicalFormation',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('technicalFormation',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('technicalFormation',{required : false})}/>
                                         
                                     </RadioGroup>
                                 </FormControl>
@@ -299,12 +321,11 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('topicsMatch',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('topicsMatch',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('topicsMatch',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('topicsMatch',{required : false})}/>
                                         
                                     </RadioGroup>                                       
                                 </FormControl>
@@ -321,13 +342,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('perseverance',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('perseverance',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>
                                 <FormControl>
@@ -335,13 +355,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('asertiveCommunication',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('asertiveCommunication',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('asertiveCommunication',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('asertiveCommunication',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('asertiveCommunication',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>
                                 <FormControl>
@@ -349,13 +368,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('responsability',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('responsability',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('responsability',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('responsability',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('responsability',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>
                                 <FormControl>
@@ -363,13 +381,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('positiveActitude',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('positiveActitude',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveActitude',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveActitude',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveActitude',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>
                                 <FormControl>
@@ -377,13 +394,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('managesFrustration',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('managesFrustration',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('managesFrustration',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('managesFrustration',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('managesFrustration',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>           
                                 <FormControl>
@@ -391,13 +407,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('proactivity',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('proactivity',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('proactivity',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('proactivity',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('proactivity',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl>        
                                 <FormControl>
@@ -405,13 +420,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('valuesWork',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('valuesWork',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('valuesWork',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('valuesWork',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('valuesWork',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -419,13 +433,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('manifestsAutonomy',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('manifestsAutonomy',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('manifestsAutonomy',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('manifestsAutonomy',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('manifestsAutonomy',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -433,13 +446,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('workSecurity',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('workSecurity',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('workSecurity',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('workSecurity',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('workSecurity',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -447,13 +459,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('manifestInterest',{required : false})}
+                                        name="row-radio-buttons-group"                                
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('manifestInterest',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('manifestInterest',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('manifestInterest',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('manifestInterest',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -461,13 +472,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('convivence',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('convivence',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('convivence',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('convivence',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('convivence',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -475,13 +485,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('teamwork',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('teamwork',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('teamwork',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('teamwork',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('teamwork',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <FormControl>
@@ -489,13 +498,12 @@ export function Forms() {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"
-                                        {...register('creativity',{required : false})}
+                                        name="row-radio-buttons-group"                                        
                                     >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" />
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('creativity',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('creativity',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('creativity',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('creativity',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
                                 <TextField sx={{width:{md: "100%"}}} id="thirdObservations"  variant="outlined" 
@@ -505,7 +513,7 @@ export function Forms() {
                                     label="Observaciones"
                                     {...register('softSkillsNotes',{required : false})}
                                 />
-                            */}
+                            
                             </div>
 
                         <Button
