@@ -90,7 +90,7 @@ export function Forms() {
                                     {...register('participantsList',{required : false})}
                                 />                                            
                                 <h5>1-Evaluación sobre el desempeño del profesor:</h5>            
-                                <FormControl>                                
+                                <FormControl>
                                     <FormLabel id="demo-row-radio-buttons-group-label">Brinda indicaciones claras.</FormLabel>
                                     <RadioGroup
                                         row
@@ -98,14 +98,15 @@ export function Forms() {
                                         name="row-radio-buttons-group"
                                         {...register('clearInstructions',{required : false})}
                                     >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" />
-                                        <FormControlLabel value="2" control={<Radio />} label="2" />
-                                        <FormControlLabel value="3" control={<Radio />} label="3" />
+                                        <FormControlLabel value='1' control={<Radio />} label="1" />
+                                        <FormControlLabel value='2' control={<Radio />} label="2" />
+                                        <FormControlLabel value='3' control={<Radio />} label="3" />
                                         
                                     </RadioGroup>
+                                    
                                 </FormControl>
                                 
-                                
+                                {/*
                                 <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Relación de respeto y autoridad con los estudiantes.</FormLabel>
                                     <RadioGroup
@@ -504,7 +505,7 @@ export function Forms() {
                                     label="Observaciones"
                                     {...register('softSkillsNotes',{required : false})}
                                 />
-                    
+                            */}
                             </div>
 
                         <Button
