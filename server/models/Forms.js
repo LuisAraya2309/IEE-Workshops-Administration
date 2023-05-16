@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const FormsSchema = new mongoose.Schema({
     //Form header
+    workShop : String,
     formDate : String,
     teacher : String,
     partner : String,

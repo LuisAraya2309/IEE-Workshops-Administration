@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
-import {TextField,Button,MenuItem, Box,Select,InputLabel, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl} from '@mui/material';
+import {TextField,Button,MenuItem, Box,Select,InputLabel, Radio,RadioGroup,FormControlLabel,FormLabel,FormControl,Dialog,DialogTitle,DialogActions} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import './Forms.css'
 import axios from 'axios'
 
@@ -21,14 +21,23 @@ export function Forms() {
     {register,handleSubmit} = useForm(),
     [workshops, setWorkshops] = useState([]),
     userLogged = state.user,
-    sendingUser = {state:{user:userLogged}}
-    
+    [open,setOpen] = useState(false),
+    navigate = useNavigate(),
+    sendingUser = {state:{user:userLogged}},
+    handleClose = () => {
+        setOpen(false);
+        navigate('/AdminPage',sendingUser)
+    };
     
 
     //Submit function for form
     const onSubmit = async(data)=>{
-        //const response = await axios.post('http://localhost:3001/forms/login', data);
         console.log(data);
+        const response = await axios.post('http://localhost:3001/forms/submitForm', data);
+        if(response.data.message != undefined) {
+            setOpen(true);
+        }
+        console.log(response);
     }
 
     //Update form styles
@@ -46,6 +55,7 @@ export function Forms() {
         };
         workshopOptions();
       },[]);
+    
     return (
         <Layout>
             <br/>
@@ -334,7 +344,7 @@ export function Forms() {
                                     multiline 
                                     rows={6}
                                     label="Escriba los temas y las habilidades técnicas vistas en el taller (consultar al profesor)"
-                                    {...register('ocupationNotes',{required : false})}
+                                    {...register('ocupationalNotes',{required : false})}
                                 />
                                 <h5>4-Evaluación de habilidades blandas y sociales de los estudiantes durante el taller.</h5>
                                 <FormControl>
@@ -530,7 +540,21 @@ export function Forms() {
                     
                 </div>
             </center>
-            
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    Formulario ingresado exitosamente
+                </DialogTitle>
+
+                <DialogActions>
+                    <Button onClick={handleClose} autoFocus>Entendido</Button>
+                </DialogActions>
+
+            </Dialog>
             </Layout>
         
     );

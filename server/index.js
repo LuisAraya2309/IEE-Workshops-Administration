@@ -16,6 +16,7 @@ app.use(cors())
 // Router prefixes
 app.use('/users', usersRouter)
 app.use('/workshops', workshopsRouter)
+app.use('/forms', formsRouter)
 
 mongoose.connect(
     config.HOST
