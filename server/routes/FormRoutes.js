@@ -7,7 +7,6 @@ router.post("/",async(req,res)=>{
 })
 
 router.post("/submitForm",async(req,res)=>{
-    console.log(req.body);
     let jsonForm = {
         //Form header
         workShop : req.body.workshop,
@@ -67,8 +66,7 @@ router.post("/submitForm",async(req,res)=>{
         
     }
 
-    const result = await FormsModel.insertMany(jsonForm);
-    console.log(result);
+    await FormsModel.insertMany(jsonForm);
     res.json({"message":"Formulario ingresado exitosamente"})
     
 })

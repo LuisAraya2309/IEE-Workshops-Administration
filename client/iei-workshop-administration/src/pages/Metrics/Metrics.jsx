@@ -1,38 +1,24 @@
-import Layout from '../../Layout';
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Box, Container } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import EditIcon from '@mui/icons-material/Edit';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import React, { Fragment } from 'react';
+
 
 export function Metrics() {
-
-  const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
-  let navigate = useNavigate();
-  
-  return (
-    <Layout>
-    <Stack spacing={4}>
-      <Stack
-        sx={{ pt: 4 }}
-        direction="row"
-        spacing={4}
-        justifyContent="center"
-      >
+return (
+  <Fragment>
+      <h1>Análisis de Información</h1>
+      <br/>
+      <div>
+        <iframe title="Promedio de profesores por taller" styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-iee-wacna/embed/charts?id=64630e59-f710-4650-8692-8637d2e70317&maxDataAge=60&theme=light&autoRefresh=true"></iframe>
+        <iframe title="Desempeño general de profesores" styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-iee-wacna/embed/charts?id=64631524-36b3-44ad-8e39-adc5fc9b21d7&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+      </div>
+      <br/>
+      <div>
+        <iframe title = "Comportamiento por taller" styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-iee-wacna/embed/charts?id=6463170b-1a61-43b3-896f-0834cfcf6e5f&maxDataAge=60&theme=light&autoRefresh=true"></iframe>
+        <iframe title = "Desempeño ocupacional por taller" styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-iee-wacna/embed/charts?id=64631826-cbdd-42ab-8868-1db6a64fa149&maxDataAge=60&theme=light&autoRefresh=true"></iframe>
+      </div>
+      <div>
+      <iframe title = "Habilidades blandas por taller" styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="640" height="480" src="https://charts.mongodb.com/charts-iee-wacna/embed/charts?id=6463197d-36b3-47c8-8116-adc5fc9d2ff4&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
         
-        <Box sx={{ '& button': { m: 1 } }}>
-        <h1>Metricas</h1>
-          <br /> <br /> <br />
-          
-        </Box>
-      </Stack>
-    </Stack>
-    </Layout>
-  );
+      </div>
+  </Fragment>
+)
 }
