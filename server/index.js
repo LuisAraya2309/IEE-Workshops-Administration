@@ -6,8 +6,9 @@ const express = require("express"),
       PORT = config.PORT,
 
       // Router import
-      usersRouter = require('./routes/UserRoutes')
-      workshopsRouter = require('./routes/WorkshopsRoutes')
+      usersRouter = require('./routes/UserRoutes'),
+      workshopsRouter = require('./routes/WorkshopsRoutes'),
+      formsRouter = require('./routes/FormRoutes'),
 
 app.use(express.json())
 app.use(cors())
@@ -15,6 +16,7 @@ app.use(cors())
 // Router prefixes
 app.use('/users', usersRouter)
 app.use('/workshops', workshopsRouter)
+app.use('/forms', formsRouter)
 
 mongoose.connect(
     config.HOST
