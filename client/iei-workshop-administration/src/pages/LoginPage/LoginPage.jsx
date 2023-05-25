@@ -26,6 +26,10 @@ export function LoginPage () {
         alert('Usuario invalido')
       }
   }
+
+  const SendPassword = () => {
+    navigate('/SendPassword',{state:{user:""}})
+  };
  
   return (
     <Fragment>
@@ -50,8 +54,7 @@ export function LoginPage () {
                 {...register('password',{required:true})}
               />
               <input type="submit" value="Iniciar sesión"/>
-              <a href="#">Olvidaste la contraseña?</a>
-              <a href="#">  No tienes una cuenta?</a>
+              <label class= "login-label" onClick = {SendPassword}>Olvidaste la contraseña?</label>
             </form>
           </div>
         </body>
@@ -60,31 +63,3 @@ export function LoginPage () {
     </Fragment>
   )
 }
-
-/*
-<div className='container'>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Iniciar Sesion</h1>
-
-            <div className="inputBox">
-              <input type="email" 
-                placeholder="Correo"
-                id="email"
-                {...register('email',{required:true})}/>
-              <span>Correo</span>
-              <i></i>
-            </div>
-
-            <div className="inputBox">
-              <input type="password" 
-                placeholder="Contraseña"
-                id="password"
-                {...register('password',{required:true})} />
-              <span>Contraseña</span>
-              <i></i>
-            </div>
-
-            <input type="submit" value="Ingresar"/>  
-          </form>
-        </div>
-*/

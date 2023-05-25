@@ -132,29 +132,3 @@ export function UserForm() {
     
   )
 }
-
-/*
-
-<div className="column">
-            <h2>Datos del cliente</h2>
-            <div className="form-grid">
-                <TextField sx={{width:{md: "49%"}}} id={"name"} label={"Nombre"} variant="outlined" 
-                onChange={(e) => {setName(e.target.value);}}
-                value={name}
-                inputProps={{ maxLength: 100 }}
-                />
-                <TextField sx={{width:{md: "49%"}}} id={"email"} label={"Email"} variant="outlined" 
-                onChange={(e) => {setEmail(e.target.value);}}
-                value={email}
-                inputProps={{ maxLength: 100 }}
-                />
-                <TextField sx={{width:{md: "49%"}}} id={"phone"} label={"Contraseña"} variant="outlined" 
-                onChange={(e) => {setPassword(e.target.value);}}
-                DefaultValue={password} 
-                inputProps={{ maxLength: 8 }}
-                />
-                <Button label="Registrar" handleSubmit={handleSubmit}></Button>
-            </div>
-        </div>
-
-*/

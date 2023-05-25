@@ -97,7 +97,6 @@ export function Forms() {
                                         </Select>
                                 </FormControl>                                  
                                 <TextField sx={{width:{md: "49%"}}} id="formDate" variant="outlined"
-                                    label="Fecha de Evaluación" 
                                     type = "date"
                                     required
                                     inputProps={{ maxLength: 100 }}
@@ -134,9 +133,9 @@ export function Forms() {
                                     label="Nombre de los participantes"
                                     {...register('participantsList',{required : false})}
                                 />                                            
-                                <h5>1-Evaluación sobre el desempeño del profesor:</h5>            
+                                <h5>1-Evaluación sobre el desempeño del profesor al impartir el taller: </h5>          
                                 <FormControl>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">Brinda indicaciones claras.</FormLabel>
+                                    <FormLabel id="demo-row-radio-buttons-group-label">Brinda indicaciones claras y concisas que facilitan el aprendizaje.</FormLabel>
                                     <RadioGroup                            
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -238,6 +237,21 @@ export function Forms() {
                                         
                                     </RadioGroup>
                                 </FormControl>
+
+                                <FormControl> 
+                                <FormLabel id="demo-row-radio-buttons-group-label">Propicia una convivencia positiva.</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"                                        
+                                    >
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveCoexistence',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveCoexistence',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveCoexistence',{required : false})}/>
+                                        
+                                    </RadioGroup> 
+                                </FormControl>
+
                                 <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Trato respetuoso con el docente y compañeros.</FormLabel>
                                     <RadioGroup
@@ -251,21 +265,9 @@ export function Forms() {
                                         
                                     </RadioGroup> 
                                 </FormControl>
+                                
                                 <FormControl> 
-                                <FormLabel id="demo-row-radio-buttons-group-label">Convivencia positiva.</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"                                        
-                                    >
-                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('positiveCoexistence',{required : false})}/>
-                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('positiveCoexistence',{required : false})}/>
-                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('positiveCoexistence',{required : false})}/>
-                                        
-                                    </RadioGroup> 
-                                </FormControl>
-                                <FormControl> 
-                                <FormLabel id="demo-row-radio-buttons-group-label">Interés y participación activa.</FormLabel>
+                                <FormLabel id="demo-row-radio-buttons-group-label">Mantiene una actitud de interés y participación activa.</FormLabel>
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
@@ -347,19 +349,7 @@ export function Forms() {
                                     {...register('ocupationalNotes',{required : false})}
                                 />
                                 <h5>4-Evaluación de habilidades blandas y sociales de los estudiantes durante el taller.</h5>
-                                <FormControl>
-                                <FormLabel id="demo-row-radio-buttons-group-label">Perseverancia: trata de hacer las cosas bien, no se rinde ante los obstaculos</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="row-radio-buttons-group"                                        
-                                    >
-                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('perseverance',{required : false})}/>
-                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('perseverance',{required : false})}/>
-                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('perseverance',{required : false})}/>
-                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('perseverance',{required : false})}/>
-                                    </RadioGroup>                                       
-                                </FormControl>
+                               
                                 <FormControl>
                                 <FormLabel id="demo-row-radio-buttons-group-label">Comunicacion asertiva</FormLabel>
                                     <RadioGroup
@@ -516,6 +506,19 @@ export function Forms() {
                                         <FormControlLabel value="3" control={<Radio />} label="3" {...register('creativity',{required : false})}/>
                                     </RadioGroup>                                       
                                 </FormControl> 
+                                <FormControl>
+                                <FormLabel id="demo-row-radio-buttons-group-label">Perseverancia: trata de hacer las cosas bien, no se rinde ante los obstaculos</FormLabel>
+                                    <RadioGroup
+                                        row
+                                        aria-labelledby="demo-row-radio-buttons-group-label"
+                                        name="row-radio-buttons-group"                                        
+                                    >
+                                        <FormControlLabel value="0" control={<Radio />} label="0" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="1" control={<Radio />} label="1" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="2" control={<Radio />} label="2" {...register('perseverance',{required : false})}/>
+                                        <FormControlLabel value="3" control={<Radio />} label="3" {...register('perseverance',{required : false})}/>
+                                    </RadioGroup>                                       
+                                </FormControl>
                                 <TextField sx={{width:{md: "100%"}}} id="thirdObservations"  variant="outlined" 
                                     required 
                                     multiline 
@@ -525,7 +528,7 @@ export function Forms() {
                                 />
                             
                             </div>
-
+                        <br />
                         <Button
                             type="submit" 
                             size="large"

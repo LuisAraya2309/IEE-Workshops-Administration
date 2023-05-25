@@ -9,11 +9,12 @@ import './nav.css';
 
 export default function Nav() {
   const {state} = useLocation(),
-  userLogged = state.user,
+  userLogged = state.user ?? "",
   sendingUser = {state:{user:userLogged}}
   const navigate = useNavigate();
   const returnMainMenu = () => {
-    navigate('/AdminPage',sendingUser)
+    console.log(userLogged);
+    navigate(userLogged !== "" ? '/AdminPage' : "/",sendingUser)
   };
 
   return (

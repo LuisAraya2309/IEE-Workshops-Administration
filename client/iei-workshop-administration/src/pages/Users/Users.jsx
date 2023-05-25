@@ -12,7 +12,6 @@ export function Users() {
 
   const {state} = useLocation(),
   userLogged = state.user
-  console.log(userLogged);
 
   const [data, setData] = useState([]),
   [ search, setSearch ] = useState("")
@@ -46,10 +45,9 @@ export function Users() {
   const results = !search ? data : data.filter((customer)=> customer.name.toLowerCase().includes(search.toLocaleLowerCase()))
 
   const deleteUser = (customer) => {
-
-    axios.post('http://localhost:3001/users/deleteUser', {customerId : customer.customerId})
+    axios.post('http://localhost:3001/users/deleteUser', {email : customer.email, name : customer.name})
     .then((response) => {
-      setData(response.data)
+      window.location.reload();
     })
     
   }
@@ -78,8 +76,7 @@ export function Users() {
             {results.map((user) =>
                 <SimpleCard 
                 title={user.name} 
-                caption={user.email} 
-                description={`Contraseña: ${user.password}`} 
+                description={user.email} 
                 handleEdit={() => {
                     editUser(user);
                 }}

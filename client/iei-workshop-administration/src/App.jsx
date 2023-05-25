@@ -13,6 +13,7 @@ import { Metrics } from './pages/Metrics/Metrics';
 import Nav from './molecules/Nav';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Forms } from './pages/Forms/Forms';
+import { SendPassword } from './pages/Users/SendPassword';
 
 export function App () {
   return (
@@ -33,6 +34,7 @@ export function App () {
 
             <Route path="/Users" element={<Users />} />
             <Route path="/UserForm" element={<UserForm />} />
+            <Route path="/SendPassword" element={<SendPassword />} />
 
             <Route path="/Forms" element={<Forms />} />
             

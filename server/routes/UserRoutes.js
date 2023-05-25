@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const UserModel = require('../models/Users')
+const nodemailer = require('nodemailer');
+const emailTemplate = require('../models/Email');
 //Login page
 
 router.post("/",async(req,res)=>{
@@ -60,6 +62,45 @@ router.post("/editUser", async (req,res) => {
         res.json({"message":"Error: El correo electrónico no corresponde al de ningún usuario. "})
     }
     
+})
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "ieicrmailer@gmail.com", 
+      pass: "wtcgzswfsvihigoi",
+    },
+  });
+
+
+router.post("/sendPassword", async (req,res) => {
+    
+    const result = await UserModel.find({ email: req.body.email })
+    
+
+    if (result[0] !== undefined){
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Request-Method', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Access-Control-Expose-Headers', 'Content-Type');
+        let info = transporter.sendMail({
+            from: '"Instituto de Educación Integral" <ieinubes@example.com>', 
+            to: req.body.email, 
+            subject: "Recuperación de datos", 
+            html: emailTemplate(req.body.email, result[0].name, result[0].password),
+        });
+        res.json({"message":"Su información fue enviada exitosamente. "})
+    
+    }
+    else{
+        res.json({"message":"La dirección electrónica no pertenece a ningun usuario registrado. "})
+        
+    }
+
 })
 
 
