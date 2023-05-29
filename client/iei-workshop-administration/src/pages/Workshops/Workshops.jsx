@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Layout from '../../Layout';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
@@ -10,9 +10,20 @@ import { Box} from '@mui/material'
 
 export function Workshops() {
   const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
-  let navigate = useNavigate();
+  navigate = useNavigate();
+
+  var userLogged;
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+  
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
+
+  const sendingUser = {state:{user:userLogged}};
+  
   return (
     <Layout>
       <h1>Gestión de Talleres</h1>

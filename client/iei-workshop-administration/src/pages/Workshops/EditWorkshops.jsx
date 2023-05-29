@@ -17,17 +17,26 @@ const useStyles = makeStyles({
     },
   });
 
-
-
 export function EditWorkshops() {
   const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
-  const classes = useStyles(),
+  navigate = useNavigate()
+  
+  var userLogged;
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+  
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
+
+  
+  const sendingUser = {state:{user:userLogged}},
+   classes = useStyles(),
   [workshops, setWorkshops] = useState([]),
   {register,handleSubmit} = useForm(),
   [open,setOpen] = useState(false),
-  navigate = useNavigate(),
   [notificationText,setNotificationText] = useState(""),
   onSubmit = async(data)=>{
     try{

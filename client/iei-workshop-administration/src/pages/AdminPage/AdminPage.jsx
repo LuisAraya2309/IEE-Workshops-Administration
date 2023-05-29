@@ -1,9 +1,9 @@
 import Layout from '../../Layout';
-import * as React from 'react';
+import React, {useEffect } from 'react'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Box, Container } from '@mui/material'
+import { Box} from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,10 +12,20 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 export function AdminPage() {
 
   const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
-  let navigate = useNavigate();
+  navigate = useNavigate();
   
+  var userLogged;
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+  
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
+
+  const sendingUser = {state:{user:userLogged}}
+
   return (
     <Layout>
     <Stack spacing={4}>

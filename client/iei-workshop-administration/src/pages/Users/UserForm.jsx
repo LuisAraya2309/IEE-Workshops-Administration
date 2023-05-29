@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { FormControl,Button,TextField ,Dialog,DialogTitle,DialogActions } from '@mui/material';
@@ -19,11 +19,23 @@ const useStyles = makeStyles({
 export function UserForm() {
 
   const {state} = useLocation(),
-  navigate = useNavigate(),
-  classes = useStyles(),
+  navigate = useNavigate();
+
+  var userLogged;
+
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
+
+  const classes = useStyles(),
   {register,handleSubmit} = useForm(),
   [open,setOpen] = useState(false),
   [notificationText,setNotificationText] = useState(""),
+  sendingUser = {state:{user:userLogged}},
   onSubmit = async(data)=>{
     try{
       
@@ -52,83 +64,88 @@ export function UserForm() {
   },
   handleClose = () => {
     setOpen(false);
-    navigate('/Users',{state:{user: state.user}} )
+    navigate('/Users',sendingUser )
   };
-
-  return (
-    <Layout>
-
-<Fragment>
-        <br /><br />
-        <h1>Gestionar Usuario</h1>
-        <br /><br /><br /><br />
-        <div className={classes.center}>
-            <Box
-
-            sx={{
-                '& > :not(style)': { m: 1, width: '80ch' },
-                top:'50%',
-                transform : 'translateY(-50%)'
-
-            }}
-            noValidate
-            autoComplete="off"
-            >
-                <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
-                <FormControl sx={{minWidth: "50%" }}>
-                <br />
-                
-                <TextField  required id={"name"} label={"Nombre"} variant="outlined" 
-                defaultValue={state.name}
-                inputProps={{ maxLength: 100 }}
-                {...register('name',{required : true})}
-                />
-                <br />
-                &nbsp;
-                <TextField  required id={"email"} label={"Email"} variant="outlined" 
-                defaultValue={state.email}
-                inputProps={{ maxLength: 100 }}
-                type = "email"
-                {...register('userEmail',{required : true})}
-                />
-                <br />
-                &nbsp;
-                <TextField  required id={"password"} label={"Contraseña"} variant="outlined" 
-                defaultValue={state.password} 
-                inputProps={{ maxLength: 8 }}
-                type = "password"
-                {...register('password',{required : true})}
-                />                
-                <br />
-                &nbsp;
-                <Button type="submit"  color="primary" variant="contained" >
-                        Registrar datos
-                </Button>
-              </FormControl> 
-                    
-                    
-                </form>
-            </Box>
-        </div>
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
-                {notificationText}
-            </DialogTitle>
-
-            <DialogActions>
-                <Button onClick={handleClose} autoFocus>Entendido</Button>
-            </DialogActions>
-
-        </Dialog>
-        
-    </Fragment>
-
-    </Layout>
+  try {
     
-  )
+    return (
+      <Layout>
+  
+  <Fragment>
+          <br /><br />
+          <h1>Gestionar Usuario</h1>
+          <br /><br /><br /><br />
+          <div className={classes.center}>
+              <Box
+  
+              sx={{
+                  '& > :not(style)': { m: 1, width: '80ch' },
+                  top:'50%',
+                  transform : 'translateY(-50%)'
+  
+              }}
+              noValidate
+              autoComplete="off"
+              >
+                  <form onSubmit={handleSubmit(onSubmit)} className='workshop-form'>
+                  <FormControl sx={{minWidth: "50%" }}>
+                  <br />
+                  
+                  <TextField  required id={"name"} label={"Nombre"} variant="outlined" 
+                  defaultValue={state.name}
+                  inputProps={{ maxLength: 100 }}
+                  {...register('name',{required : true})}
+                  />
+                  <br />
+                  &nbsp;
+                  <TextField  required id={"email"} label={"Email"} variant="outlined" 
+                  value={state.email}
+                  inputProps={{ maxLength: 100 }}
+                  type = "email"
+                  {...register('userEmail',{required : true})}
+                  />
+                  <br />
+                  &nbsp;
+                  <TextField  required id={"password"} label={"Contraseña"} variant="outlined" 
+                  defaultValue={state.password} 
+                  inputProps={{ maxLength: 8 }}
+                  type = "password"
+                  {...register('password',{required : true})}
+                  />                
+                  <br />
+                  &nbsp;
+                  <Button type="submit"  color="primary" variant="contained" >
+                          Registrar datos
+                  </Button>
+                </FormControl> 
+                      
+                      
+                  </form>
+              </Box>
+          </div>
+          <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+          >
+              <DialogTitle id="alert-dialog-title">
+                  {notificationText}
+              </DialogTitle>
+  
+              <DialogActions>
+                  <Button onClick={handleClose} autoFocus>Entendido</Button>
+              </DialogActions>
+  
+          </Dialog>
+          
+      </Fragment>
+  
+      </Layout>
+      
+    )
+
+  } catch (error) {
+    navigate("/")
+  }
 }

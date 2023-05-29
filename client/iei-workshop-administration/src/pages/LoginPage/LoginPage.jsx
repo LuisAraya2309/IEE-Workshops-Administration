@@ -5,10 +5,10 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../Layout';
 
-export function LoginPage () {
-  const {register,handleSubmit} = useForm();
 
-  let navigate = useNavigate()
+export function LoginPage () {
+  const {register,handleSubmit} = useForm(),
+  navigate = useNavigate()
 
   const loggedIn = (userLogged) =>{
     // Loged and navigate to component main Menu

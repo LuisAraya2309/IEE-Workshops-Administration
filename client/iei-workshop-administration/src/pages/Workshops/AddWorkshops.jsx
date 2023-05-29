@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { TextField ,Dialog,DialogTitle,DialogActions} from '@mui/material'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -20,14 +20,24 @@ const useStyles = makeStyles({
 
 export function AddWorkshops() {
   const {state} = useLocation(),
-  userLogged = state.user,
-  sendingUser = {state:{user:userLogged}}
+  navigate = useNavigate()
+
+  var userLogged;
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+  
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
+
+  const sendingUser = {state:{user:userLogged}}
  
   const classes = useStyles(),
         [open,setOpen] = useState(false),
         {register,handleSubmit} = useForm(),
         [notificationText,setNotificationText] = useState(""),
-        navigate = useNavigate(),
 
         onSubmit = async(data) =>{
             try{
@@ -46,6 +56,7 @@ export function AddWorkshops() {
             navigate('/Workshops',sendingUser)
         }
     };
+
   return (
     <Layout>
         

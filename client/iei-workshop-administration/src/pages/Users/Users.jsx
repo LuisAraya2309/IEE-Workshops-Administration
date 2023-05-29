@@ -10,8 +10,7 @@ import Layout from '../../Layout';
 import './Users.css'
 export function Users() {
 
-  const {state} = useLocation(),
-  userLogged = state.user
+  const {state} = useLocation()
 
   const [data, setData] = useState([]),
   [ search, setSearch ] = useState("")
@@ -22,6 +21,16 @@ export function Users() {
   }, [])
   
   const navigate = useNavigate();
+
+  var userLogged;
+  useEffect(()=>{
+    try {
+      userLogged = state.user
+  
+    } catch (error) {
+      navigate("/");
+    }
+  },[]);
 
   const handleClick = () => {
     navigate("/UserForm", {state: {user:userLogged, transaction:"Add"}});

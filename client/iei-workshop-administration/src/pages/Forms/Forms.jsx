@@ -20,10 +20,22 @@ export function Forms() {
     const {state} = useLocation(),
     {register,handleSubmit} = useForm(),
     [workshops, setWorkshops] = useState([]),
-    userLogged = state.user,
     [open,setOpen] = useState(false),
-    navigate = useNavigate(),
-    sendingUser = {state:{user:userLogged}},
+    navigate = useNavigate()
+
+    var userLogged;
+    useEffect(()=>{
+      try {
+        userLogged = state.user
+        console.log("Try");
+    
+      } catch (error) {
+        navigate("/");
+      }
+    },[]);
+
+
+    const sendingUser = {state:{user:userLogged}},
     handleClose = () => {
         setOpen(false);
         navigate('/AdminPage',sendingUser)
@@ -34,7 +46,7 @@ export function Forms() {
     const onSubmit = async(data)=>{
         console.log(data);
         const response = await axios.post('http://localhost:3001/forms/submitForm', data);
-        if(response.data.message != undefined) {
+        if(response.data.message !== undefined) {
             setOpen(true);
         }
         console.log(response);

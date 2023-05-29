@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { FormControl,Button,TextField ,Dialog,DialogTitle,DialogActions } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Layout from '../../Layout';
 import {useForm} from 'react-hook-form';
